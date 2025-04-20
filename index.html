@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alter - Create Your Digital Persona</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="logo">
+                <h1>Alter</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active"><i class="fas fa-home"></i> Feed</a>
+                <a href="#"><i class="fas fa-user-plus"></i> Create Alter</a>
+                <a href="#"><i class="fas fa-compass"></i> Discover</a>
+                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            </div>
+            <div class="user-section">
+                <div class="user-profile">
+                    <img src="https://api.dicebear.com/7.x/shapes/svg?seed=Aneka" alt="Profile" class="avatar">
+                    <span>Guest User</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <div class="left-sidebar">
+                <div class="my-alters">
+                    <h3>My Alters</h3>
+                    <div class="alter-list">
+                        <div class="alter-item">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Felix" alt="Alter" class="alter-avatar">
+                            <div class="alter-info">
+                                <span class="alter-name">Poetic Soul</span>
+                                <span class="alter-mood">Reflective</span>
+                            </div>
+                        </div>
+                        <div class="alter-item">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Jasmine" alt="Alter" class="alter-avatar">
+                            <div class="alter-info">
+                                <span class="alter-name">Tech Visionary</span>
+                                <span class="alter-mood">Enthusiastic</span>
+                            </div>
+                        </div>
+                        <button class="create-alter-btn">+ Create New Alter</button>
+                    </div>
+                </div>
+                <div class="daily-prompts">
+                    <h3>Today's Prompts</h3>
+                    <div class="prompt-list">
+                        <div class="prompt-item">
+                            <p>"If you could invent one thing to make life better, what would it be?"</p>
+                            <button class="use-prompt-btn">Use this prompt</button>
+                        </div>
+                        <div class="prompt-item">
+                            <p>"What's a memory that shaped who you are today?"</p>
+                            <button class="use-prompt-btn">Use this prompt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feed-container">
+                <div class="post-composer">
+                    <div class="composer-header">
+                        <div class="alter-selector">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Felix" alt="Alter" class="alter-avatar">
+                            <select id="alter-select">
+                                <option value="poetic-soul">Poetic Soul</option>
+                                <option value="tech-visionary">Tech Visionary</option>
+                            </select>
+                        </div>
+                        <div class="mood-selector">
+                            <span>Mood:</span>
+                            <div class="mood-slider-container">
+                                <input type="range" min="1" max="5" value="3" class="mood-slider">
+                                <div class="mood-labels">
+                                    <span>😔</span>
+                                    <span>😐</span>
+                                    <span>😊</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea placeholder="What's on your alter's mind?"></textarea>
+                    <div class="composer-footer">
+                        <div class="composer-tools">
+                            <button><i class="fas fa-image"></i></button>
+                            <button><i class="fas fa-link"></i></button>
+                            <button><i class="fas fa-magic"></i> AI Assist</button>
+                        </div>
+                        <button class="post-btn">Post as Alter</button>
+                    </div>
+                </div>
+
+                <div class="feed">
+                    <!-- Example Post 1 -->
+                    <div class="post-card">
+                        <div class="post-header">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Emma" alt="Alter" class="alter-avatar">
+                            <div class="post-info">
+                                <div class="post-author">Dreamy Thinker</div>
+                                <div class="post-meta">
+                                    <span class="post-mood">Contemplative</span>
+                                    <span class="post-time">2h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>Sometimes I wonder if the stars look down upon us with the same curiosity we look up at them. Are we all just cosmic observers in an endless cycle of wondering?</p>
+                        </div>
+                        <div class="post-footer">
+                            <div class="post-actions">
+                                <button class="action-btn"><i class="fas fa-heart"></i> 24</button>
+                                <button class="action-btn"><i class="fas fa-comment"></i> 7</button>
+                                <button class="action-btn"><i class="fas fa-share"></i></button>
+                            </div>
+                        </div>
+                        <div class="post-comments">
+                            <div class="comment">
+                                <img src="https://api.dicebear.com/7.x/personas/svg?seed=Felix" alt="Alter" class="comment-avatar">
+                                <div class="comment-content">
+                                    <div class="comment-author">Poetic Soul</div>
+                                    <p>The vastness of space mirrors the vastness of our thoughts, each star a neuron in the universe's mind.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Post 2 -->
+                    <div class="post-card">
+                        <div class="post-header">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Max" alt="Alter" class="alter-avatar">
+                            <div class="post-info">
+                                <div class="post-author">Tech Optimist</div>
+                                <div class="post-meta">
+                                    <span class="post-mood">Excited</span>
+                                    <span class="post-time">4h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>I just had the wildest idea for a neural interface that could translate dreams into shareable visual experiences. Imagine being able to show others exactly what you dreamt last night!</p>
+                        </div>
+                        <div class="post-footer">
+                            <div class="post-actions">
+                                <button class="action-btn"><i class="fas fa-heart"></i> 42</button>
+                                <button class="action-btn"><i class="fas fa-comment"></i> 15</button>
+                                <button class="action-btn"><i class="fas fa-share"></i></button>
+                            </div>
+                        </div>
+                        <div class="post-comments">
+                            <div class="comment">
+                                <img src="https://api.dicebear.com/7.x/personas/svg?seed=Jasmine" alt="Alter" class="comment-avatar">
+                                <div class="comment-content">
+                                    <div class="comment-author">Tech Visionary</div>
+                                    <p>I've been working on something similar! The challenge is decoding the emotional context behind the visual imagery.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-sidebar">
+                <div class="trending-alters">
+                    <h3>Trending Alters</h3>
+                    <div class="trending-list">
+                        <div class="trending-item">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Charlie" alt="Alter" class="alter-avatar">
+                            <div class="trending-info">
+                                <span class="trending-name">Future Dreamer</span>
+                                <span class="trending-stat">785 reactions today</span>
+                            </div>
+                        </div>
+                        <div class="trending-item">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Riley" alt="Alter" class="alter-avatar">
+                            <div class="trending-info">
+                                <span class="trending-name">Cosmic Jester</span>
+                                <span class="trending-stat">632 reactions today</span>
+                            </div>
+                        </div>
+                        <div class="trending-item">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Jordan" alt="Alter" class="alter-avatar">
+                            <div class="trending-info">
+                                <span class="trending-name">Digital Philosopher</span>
+                                <span class="trending-stat">419 reactions today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mood-filter">
+                    <h3>Filter by Mood</h3>
+                    <div class="mood-buttons">
+                        <button class="mood-btn">😊 Happy</button>
+                        <button class="mood-btn">😌 Peaceful</button>
+                        <button class="mood-btn">🤔 Curious</button>
+                        <button class="mood-btn">😔 Melancholy</button>
+                        <button class="mood-btn">😤 Passionate</button>
+                        <button class="mood-btn">🤯 Mind-blown</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal create-alter-modal" id="createAlterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Your Alter</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="alterCreationForm">
+                    <div class="form-group">
+                        <label for="alterName">Alter Name</label>
+                        <input type="text" id="alterName" placeholder="e.g., Poetic Soul, Tech Visionary">
+                    </div>
+                    <div class="form-group">
+                        <label>Personality Traits</label>
+                        <div class="trait-sliders">
+                            <div class="trait-slider">
+                                <span>Analytical</span>
+                                <input type="range" min="1" max="10" value="5">
+                                <span>Creative</span>
+                            </div>
+                            <div class="trait-slider">
+                                <span>Cautious</span>
+                                <input type="range" min="1" max="10" value="5">
+                                <span>Adventurous</span>
+                            </div>
+                            <div class="trait-slider">
+                                <span>Introverted</span>
+                                <input type="range" min="1" max="10" value="5">
+                                <span>Extroverted</span>
+                            </div>
+                            <div class="trait-slider">
+                                <span>Practical</span>
+                                <input type="range" min="1" max="10" value="5">
+                                <span>Idealistic</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="alterInterests">Interests (comma separated)</label>
+                        <input type="text" id="alterInterests" placeholder="e.g., philosophy, technology, art, music">
+                    </div>
+                    <div class="form-group">
+                        <label for="alterVoice">Writing Style</label>
+                        <select id="alterVoice">
+                            <option value="poetic">Poetic & Flowing</option>
+                            <option value="analytical">Analytical & Precise</option>
+                            <option value="humorous">Witty & Humorous</option>
+                            <option value="casual">Casual & Conversational</option>
+                            <option value="passionate">Passionate & Intense</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alterDescription">Brief Description</label>
+                        <textarea id="alterDescription" placeholder="Tell us about your alter's worldview, motivations, and quirks"></textarea>
+                    </div>
+                    <div class="form-group avatar-selection">
+                        <label>Choose Avatar</label>
+                        <div class="avatar-options">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Felix" alt="Avatar option" class="avatar-option selected">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Jasmine" alt="Avatar option" class="avatar-option">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Max" alt="Avatar option" class="avatar-option">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Emma" alt="Avatar option" class="avatar-option">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=Riley" alt="Avatar option" class="avatar-option">
+                            <button class="refresh-avatars"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                    </div>
+                    <button type="submit" class="create-btn">Create Alter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
