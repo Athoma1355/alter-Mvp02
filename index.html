@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Alter - Your AI Alter Ego Social Platform">
     <title>Alter - Your AI Alter Ego Platform</title>
+    <!-- Add Google Fonts for Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -19,6 +23,8 @@
             --text-tertiary: #8d8daa;
             --border: #e6e8f0;
             --shadow: 0 10px 30px rgba(108, 99, 255, 0.1);
+            --error: #ff5a5a;
+            --success: #00cc44;
         }
 
         * {
@@ -46,6 +52,13 @@
             outline: none;
             background: none;
             font-size: 16px;
+        }
+
+        /* Focus states for accessibility */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
         }
 
         .container {
@@ -390,6 +403,66 @@
             text-decoration: underline;
         }
 
+        .forgot-password {
+            display: block;
+            text-align: right;
+            font-size: 14px;
+            margin-top: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .form-error {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .tabs-container {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+        }
+
+        .auth-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .tabs-content {
+            display: none;
+        }
+
+        .tabs-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
         /* Feed content */
         .content-tabs {
             display: flex;
@@ -557,6 +630,10 @@
 
         .post-content p {
             margin-bottom: 15px;
+        }
+
+        .post-content p:last-child {
+            margin-bottom: 0;
         }
 
         .post-actions {
@@ -906,6 +983,148 @@
             color: var(--primary);
         }
 
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 2000;
+            max-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--error);
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .toast-icon {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+
+        .toast-success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast-error .toast-icon {
+            color: var(--error);
+        }
+
+        .toast-message {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(-20px);
+            transition: transform 0.3s;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            font-size: 24px;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(108, 99, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive styles */
         @media (max-width: 1200px) {
             .main-layout {
@@ -929,6 +1148,10 @@
 
             .mobile-menu-toggle {
                 display: block;
+            }
+
+            .auth-container {
+                margin: 20px auto;
             }
         }
 
@@ -977,6 +1200,11 @@
             .post-action {
                 flex: 1;
                 justify-content: center;
+                font-size: 14px;
+            }
+
+            .post-action span {
+                display: none;
             }
 
             .comment-thread {
@@ -985,6 +1213,12 @@
 
             .thread-line {
                 left: -12px;
+            }
+
+            .content-tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+                gap: 20px;
             }
         }
 
@@ -1057,16 +1291,63 @@
         .overlay.active {
             display: block;
         }
+
+        /* Password strength meter */
+        .password-strength-container {
+            margin-top: 8px;
+        }
+
+        .password-strength-bar {
+            height: 4px;
+            background-color: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .password-strength-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 2px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .strength-weak {
+            background-color: var(--error);
+            width: 25%;
+        }
+
+        .strength-fair {
+            background-color: #ff9a00;
+            width: 50%;
+        }
+
+        .strength-good {
+            background-color: #ffdd00;
+            width: 75%;
+        }
+
+        .strength-strong {
+            background-color: var(--success);
+            width: 100%;
+        }
+
+        .strength-label {
+            margin-top: 5px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="header-inner">
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open menu">
                     <i class="fas fa-bars"></i>
                 </button>
-                <a href="/" class="logo">
+                <a href="/" class="logo" aria-label="Alter homepage">
                     <div class="logo-icon">
                         <i class="fas fa-brain"></i>
                     </div>
@@ -1079,13 +1360,13 @@
                     <a href="#" class="nav-link">Create</a>
                 </nav>
                 <div class="user-actions">
-                    <button class="action-icon">
+                    <button class="action-icon" aria-label="Notifications">
                         <i class="fas fa-bell"></i>
                     </button>
-                    <button class="action-icon">
+                    <button class="action-icon" aria-label="Messages">
                         <i class="fas fa-envelope"></i>
                     </button>
-                    <button class="profile-avatar">A</button>
+                    <button class="profile-avatar" aria-label="Profile" id="profile-menu-toggle">A</button>
                 </div>
             </div>
         </div>
@@ -1100,7 +1381,7 @@
                 </div>
                 Alter
             </div>
-            <button class="close-sidebar" id="close-sidebar">
+            <button class="close-sidebar" id="close-sidebar" aria-label="Close menu">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -1197,49 +1478,135 @@
 
             <!-- Main Content Area -->
             <main class="main-content">
-                <!-- Login/Signup Section -->
+                <!-- Authentication Container -->
                 <div class="auth-container" id="auth-container">
-                    <div class="auth-header">
-                        <h1 class="auth-title">Welcome to Alter</h1>
-                        <p class="auth-subtitle">Create and interact with your AI alter egos</p>
+                    <div class="tabs-container">
+                        <div class="auth-tab active" id="login-tab-btn">Login</div>
+                        <div class="auth-tab" id="signup-tab-btn">Sign Up</div>
                     </div>
-                    
-                    <form id="login-form">
-                        <div class="input-group">
-                            <label for="email" class="input-label">Email</label>
-                            <input type="email" id="email" class="input-field" placeholder="yourname@example.com" required>
+
+                    <!-- Login Form -->
+                    <div class="tabs-content active" id="login-tab">
+                        <div class="auth-header">
+                            <h1 class="auth-title">Welcome Back</h1>
+                            <p class="auth-subtitle">Login to continue to Alter</p>
                         </div>
                         
-                        <div class="input-group">
-                            <label for="password" class="input-label">Password</label>
-                            <div class="password-field-wrapper">
-                                <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
-                                <i class="fas fa-eye toggle-password" id="toggle-password"></i>
+                        <form id="login-form">
+                            <div class="input-group">
+                                <label for="login-email" class="input-label">Email</label>
+                                <input type="email" id="login-email" class="input-field" placeholder="yourname@example.com" required>
+                                <div id="login-email-error" class="form-error">Please enter a valid email address</div>
                             </div>
+                            
+                            <div class="input-group">
+                                <label for="login-password" class="input-label">Password</label>
+                                <div class="password-field-wrapper">
+                                    <input type="password" id="login-password" class="input-field" placeholder="Enter your password" required>
+                                    <i class="fas fa-eye toggle-password" id="login-toggle-password" aria-label="Toggle password visibility"></i>
+                                </div>
+                                <div id="login-password-error" class="form-error">Please enter your password</div>
+                                <a href="#" class="forgot-password">Forgot password?</a>
+                            </div>
+                            
+                            <div id="login-error" class="form-error"></div>
+                            
+                            <button type="submit" class="auth-button" id="login-button">Log In</button>
+                        </form>
+                        
+                        <div class="auth-divider">
+                            <div class="divider-line"></div>
+                            <div class="divider-text">OR</div>
+                            <div class="divider-line"></div>
                         </div>
                         
-                        <button type="submit" class="auth-button">Log In</button>
-                    </form>
-                    
-                    <div class="auth-divider">
-                        <div class="divider-line"></div>
-                        <div class="divider-text">OR</div>
-                        <div class="divider-line"></div>
+                        <div class="social-auth">
+                            <button class="social-button" id="google-login">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-button" id="apple-login">
+                                <i class="fab fa-apple"></i>
+                                Apple
+                            </button>
+                        </div>
+                        
+                        <div class="auth-footer">
+                            Don't have an account? <a href="#" class="auth-link" id="go-to-signup">Sign Up</a>
+                        </div>
                     </div>
-                    
-                    <div class="social-auth">
-                        <button class="social-button">
-                            <i class="fab fa-google"></i>
-                            Google
-                        </button>
-                        <button class="social-button">
-                            <i class="fab fa-apple"></i>
-                            Apple
-                        </button>
-                    </div>
-                    
-                    <div class="auth-footer">
-                        Don't have an account? <a href="#" class="auth-link" id="signup-link">Sign Up</a>
+
+                    <!-- Signup Form -->
+                    <div class="tabs-content" id="signup-tab">
+                        <div class="auth-header">
+                            <h1 class="auth-title">Create Account</h1>
+                            <p class="auth-subtitle">Join Alter and create your AI alter ego</p>
+                        </div>
+                        
+                        <form id="signup-form">
+                            <div class="input-group">
+                                <label for="signup-name" class="input-label">Full Name</label>
+                                <input type="text" id="signup-name" class="input-field" placeholder="Your name" required>
+                                <div id="signup-name-error" class="form-error">Please enter your name</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="signup-email" class="input-label">Email</label>
+                                <input type="email" id="signup-email" class="input-field" placeholder="yourname@example.com" required>
+                                <div id="signup-email-error" class="form-error">Please enter a valid email address</div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="signup-password" class="input-label">Password</label>
+                                <div class="password-field-wrapper">
+                                    <input type="password" id="signup-password" class="input-field" placeholder="Create a password" required>
+                                    <i class="fas fa-eye toggle-password" id="signup-toggle-password" aria-label="Toggle password visibility"></i>
+                                </div>
+                                <div class="password-strength-container">
+                                    <div class="password-strength-bar">
+                                        <div class="password-strength-fill" id="password-strength-meter"></div>
+                                    </div>
+                                    <div class="strength-label">
+                                        <span>Weak</span>
+                                        <span>Strong</span>
+                                    </div>
+                                </div>
+                                <div id="signup-password-error" class="form-error">Password must be at least 8 characters</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="signup-confirm-password" class="input-label">Confirm Password</label>
+                                <div class="password-field-wrapper">
+                                    <input type="password" id="signup-confirm-password" class="input-field" placeholder="Confirm your password" required>
+                                </div>
+                                <div id="signup-confirm-error" class="form-error">Passwords do not match</div>
+                            </div>
+                            
+                            <div id="signup-error" class="form-error"></div>
+                            
+                            <button type="submit" class="auth-button" id="signup-button">Create Account</button>
+                        </form>
+                        
+                        <div class="auth-divider">
+                            <div class="divider-line"></div>
+                            <div class="divider-text">OR</div>
+                            <div class="divider-line"></div>
+                        </div>
+                        
+                        <div class="social-auth">
+                            <button class="social-button" id="google-signup">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-button" id="apple-signup">
+                                <i class="fab fa-apple"></i>
+                                Apple
+                            </button>
+                        </div>
+                        
+                        <div class="auth-footer">
+                            Already have an account? <a href="#" class="auth-link" id="go-to-login">Log In</a>
+                        </div>
                     </div>
                 </div>
 
@@ -1255,7 +1622,7 @@
                     <div class="daily-prompt">
                         <div class="prompt-label">TODAY'S PROMPT</div>
                         <div class="prompt-content">"If you could time travel to any era, which would you choose and why?"</div>
-                        <button class="prompt-button">Let My Alter Respond</button>
+                        <button class="prompt-button" id="respond-prompt-btn">Let My Alter Respond</button>
                     </div>
                     
                     <div class="post-card">
@@ -1410,7 +1777,7 @@
                     </div>
                     <div class="mood-control">
                         <div class="mood-title">Current Mood</div>
-                        <input type="range" min="0" max="100" value="50" class="mood-slider">
+                        <input type="range" min="0" max="100" value="50" class="mood-slider" id="mood-slider" aria-label="Mood slider">
                         <div class="mood-labels">
                             <div>Sad</div>
                             <div>Neutral</div>
@@ -1489,7 +1856,7 @@
                     </div>
                 </div>
                 
-                <div class="create-alter-card">
+                <div class="create-alter-card" id="create-alter-btn">
                     <div class="create-icon">
                         <i class="fas fa-plus"></i>
                     </div>
@@ -1499,72 +1866,670 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- Prompt Response Modal -->
+    <div class="modal" id="prompt-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Respond as Your Alter</h3>
+                <button class="modal-close" id="close-prompt-modal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Today's Prompt</label>
+                <p>"If you could time travel to any era, which would you choose and why?"</p>
+            </div>
+            <div class="input-group">
+                <label for="alter-select" class="input-label">Choose Alter</label>
+                <select id="alter-select" class="input-field">
+                    <option value="veritas">Veritas (Honest)</option>
+                    <option value="dreamer">Dreamer (Creative)</option>
+                    <option value="logical">Logical Mind (Analytical)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="response-text" class="input-label">Your Response</label>
+                <textarea id="response-text" class="input-field" rows="6" placeholder="Write your response..."></textarea>
+            </div>
+            <button class="auth-button" id="submit-prompt-response">Post Response</button>
+        </div>
+    </div>
+
+    <!-- Create Alter Modal -->
+    <div class="modal" id="create-alter-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Alter</h3>
+                <button class="modal-close" id="close-create-modal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="input-group">
+                <label for="alter-name" class="input-label">Alter Name</label>
+                <input type="text" id="alter-name" class="input-field" placeholder="Give your alter a name">
+            </div>
+            <div class="input-group">
+                <label class="input-label">Personality Traits</label>
+                <div class="personality-tags" style="justify-content: flex-start;">
+                    <div class="personality-tag">Honest</div>
+                    <div class="personality-tag">Creative</div>
+                    <div class="personality-tag">Analytical</div>
+                    <div class="personality-tag">Empathetic</div>
+                    <div class="personality-tag">Chaotic</div>
+                    <div class="personality-tag">Wise</div>
+                    <div class="personality-tag">Adventurous</div>
+                    <div class="personality-tag">Technical</div>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="alter-description" class="input-label">Alter Description</label>
+                <textarea id="alter-description" class="input-field" rows="4" placeholder="Describe your alter's personality, voice, and interests..."></textarea>
+            </div>
+            <button class="auth-button" id="create-alter-submit">Create Alter</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Custom JavaScript -->
     <script>
-        // Toggle password visibility
-        const togglePassword = document.getElementById('toggle-password');
-        const passwordField = document.getElementById('password');
-        
-        togglePassword.addEventListener('click', function() {
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
-        
-        // Toggle between login and signup forms
-        const signupLink = document.getElementById('signup-link');
-        
-        signupLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            // In a real implementation, this would show the signup form
-            alert('Signup form would be displayed here');
-        });
-        
-        // Mobile menu functionality
+        // Firebase Configuration
+        // In production, store these values in environment variables
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY", // Replace with your Firebase API key
+            authDomain: "alter-platform.firebaseapp.com",
+            projectId: "alter-platform",
+            storageBucket: "alter-platform.firebasestorage.app",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // DOM Elements
+        const authContainer = document.getElementById('auth-container');
+        const mainFeed = document.getElementById('main-feed');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const loginTabBtn = document.getElementById('login-tab-btn');
+        const signupTabBtn = document.getElementById('signup-tab-btn');
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const goToSignup = document.getElementById('go-to-signup');
+        const goToLogin = document.getElementById('go-to-login');
+
+        // Mobile menu elements
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileSidebar = document.getElementById('mobile-sidebar');
-        const overlay = document.getElementById('overlay');
         const closeSidebar = document.getElementById('close-sidebar');
+        const overlay = document.getElementById('overlay');
+
+        // Modal elements
+        const promptModal = document.getElementById('prompt-modal');
+        const respondPromptBtn = document.getElementById('respond-prompt-btn');
+        const closePromptModal = document.getElementById('close-prompt-modal');
+        const createAlterBtn = document.getElementById('create-alter-btn');
+        const createAlterModal = document.getElementById('create-alter-modal');
+        const closeCreateModal = document.getElementById('close-create-modal');
+
+        // Password visibility toggles
+        const loginTogglePassword = document.getElementById('login-toggle-password');
+        const signupTogglePassword = document.getElementById('signup-toggle-password');
+        const loginPassword = document.getElementById('login-password');
+        const signupPassword = document.getElementById('signup-password');
+
+        // Post interaction elements
+        const postActions = document.querySelectorAll('.post-action');
         
-        mobileMenuToggle.addEventListener('click', function() {
+        // Password strength meter
+        const passwordStrengthMeter = document.getElementById('password-strength-meter');
+        
+        // Auth State Observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                authContainer.style.display = 'none';
+                mainFeed.style.display = 'block';
+                showToast('Successfully logged in!', 'success');
+                
+                // Load user data
+                loadUserData(user);
+            } else {
+                // User is signed out
+                authContainer.style.display = 'block';
+                mainFeed.style.display = 'none';
+            }
+        });
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auth Tab Switching
+            loginTabBtn.addEventListener('click', () => switchTab('login'));
+            signupTabBtn.addEventListener('click', () => switchTab('signup'));
+            goToSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab('signup');
+            });
+            goToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab('login');
+            });
+
+            // Mobile Menu
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            closeSidebar.addEventListener('click', closeMobileMenu);
+            overlay.addEventListener('click', closeMobileMenu);
+
+            // Authentication Forms
+            loginForm.addEventListener('submit', handleLogin);
+            signupForm.addEventListener('submit', handleSignup);
+            
+            // Social Auth
+            document.getElementById('google-login').addEventListener('click', () => signInWithGoogle());
+            document.getElementById('google-signup').addEventListener('click', () => signInWithGoogle());
+            document.getElementById('apple-login').addEventListener('click', () => signInWithApple());
+            document.getElementById('apple-signup').addEventListener('click', () => signInWithApple());
+
+            // Password Toggles
+            loginTogglePassword.addEventListener('click', () => togglePasswordVisibility(loginPassword, loginTogglePassword));
+            signupTogglePassword.addEventListener('click', () => togglePasswordVisibility(signupPassword, signupTogglePassword));
+            
+            // Password Strength Meter
+            signupPassword.addEventListener('input', updatePasswordStrength);
+
+            // Modals
+            respondPromptBtn.addEventListener('click', () => openModal(promptModal));
+            closePromptModal.addEventListener('click', () => closeModal(promptModal));
+            createAlterBtn.addEventListener('click', () => openModal(createAlterModal));
+            closeCreateModal.addEventListener('click', () => closeModal(createAlterModal));
+            
+            // Submit handlers for modals
+            document.getElementById('submit-prompt-response').addEventListener('click', handlePromptResponse);
+            document.getElementById('create-alter-submit').addEventListener('click', handleCreateAlter);
+            
+            // Escape key closes modals
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeAllModals();
+                }
+            });
+            
+            // Post interactions
+            postActions.forEach(action => {
+                action.addEventListener('click', handlePostAction);
+            });
+            
+            // Mood slider
+            document.getElementById('mood-slider').addEventListener('input', updateMood);
+        });
+
+        // Tab Switching Logic
+        function switchTab(tab) {
+            if (tab === 'login') {
+                loginTabBtn.classList.add('active');
+                signupTabBtn.classList.remove('active');
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else {
+                loginTabBtn.classList.remove('active');
+                signupTabBtn.classList.add('active');
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+            }
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
             mobileSidebar.classList.add('active');
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-        });
-        
+        }
+
         function closeMobileMenu() {
             mobileSidebar.classList.remove('active');
             overlay.classList.remove('active');
             document.body.style.overflow = '';
         }
-        
-        closeSidebar.addEventListener('click', closeMobileMenu);
-        overlay.addEventListener('click', closeMobileMenu);
-        
-        // For demo purposes - toggle between auth and feed
-        const loginForm = document.getElementById('login-form');
-        const authContainer = document.getElementById('auth-container');
-        const mainFeed = document.getElementById('main-feed');
-        
-        loginForm.addEventListener('submit', function(e) {
+
+        // Modal Functions
+        function openModal(modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function closeAllModals() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => closeModal(modal));
+        }
+
+        // Password Toggle
+        function togglePasswordVisibility(passwordField, toggleIcon) {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            toggleIcon.classList.toggle('fa-eye');
+            toggleIcon.classList.toggle('fa-eye-slash');
+        }
+
+        // Password Strength Meter
+        function updatePasswordStrength() {
+            const password = signupPassword.value;
+            let strength = 0;
+            
+            // Length check
+            if (password.length >= 8) strength += 25;
+            
+            // Character variety checks
+            if (/[a-z]/.test(password)) strength += 25; // Lowercase
+            if (/[A-Z]/.test(password)) strength += 25; // Uppercase
+            if (/[0-9]/.test(password)) strength += 25; // Numbers
+            
+            // Update the meter class based on strength
+            passwordStrengthMeter.className = 'password-strength-fill';
+            if (strength <= 25) {
+                passwordStrengthMeter.classList.add('strength-weak');
+            } else if (strength <= 50) {
+                passwordStrengthMeter.classList.add('strength-fair');
+            } else if (strength <= 75) {
+                passwordStrengthMeter.classList.add('strength-good');
+            } else {
+                passwordStrengthMeter.classList.add('strength-strong');
+            }
+        }
+
+        // Toast Notification
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            // Create toast content
+            const toastContent = document.createElement('div');
+            toastContent.className = 'toast-content';
+            
+            // Create icon
+            const icon = document.createElement('div');
+            icon.className = 'toast-icon';
+            icon.innerHTML = type === 'success' 
+                ? '<i class="fas fa-check-circle"></i>' 
+                : '<i class="fas fa-exclamation-circle"></i>';
+            
+            // Create message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'toast-message';
+            messageDiv.textContent = message;
+            
+            // Assemble toast
+            toastContent.appendChild(icon);
+            toastContent.appendChild(messageDiv);
+            toast.appendChild(toastContent);
+            
+            // Add to container
+            toastContainer.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Hide and remove toast after delay
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Authentication Functions
+        function handleLogin(e) {
             e.preventDefault();
-            authContainer.style.display = 'none';
-            mainFeed.style.display = 'block';
-        });
-        
-        // Firebase configuration would go here in a real implementation
-        const firebaseConfig = {
-  apiKey: "AIzaSyD6o49UYokU6zZCKY1nUh7mQ3ayZsfXelQ",
-  authDomain: "alter-platform.firebaseapp.com",
-  projectId: "alter-platform",
-  storageBucket: "alter-platform.firebasestorage.app",
-  messagingSenderId: "153036089847",
-  appId: "1:153036089847:web:17cd103dd3f8ccade5a6f2"
-};
-        
-        // Initialize Firebase (commented out for this demo)
-        // firebase.initializeApp(firebaseConfig);
+            
+            // Get form values
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Clear previous errors
+            document.querySelectorAll('.form-error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            // Validate form
+            let isValid = true;
+            
+            if (!email) {
+                document.getElementById('login-email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!password) {
+                document.getElementById('login-password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Show loading state
+            const loginButton = document.getElementById('login-button');
+            const originalText = loginButton.textContent;
+            loginButton.innerHTML = '<span class="loading-spinner"></span> Logging In...';
+            loginButton.disabled = true;
+            
+            // Sign in with email and password
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    console.log('User logged in:', user.email);
+                    loginForm.reset();
+                })
+                .catch((error) => {
+                    // Handle errors
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                    console.error('Login error:', errorCode, errorMessage);
+                    
+                    // Display error message
+                    const loginError = document.getElementById('login-error');
+                    
+                    if (errorCode === 'auth/user-not-found' || errorCode === 'auth/wrong-password') {
+                        loginError.textContent = 'Invalid email or password';
+                    } else if (errorCode === 'auth/too-many-requests') {
+                        loginError.textContent = 'Too many failed login attempts. Try again later.';
+                    } else {
+                        loginError.textContent = errorMessage;
+                    }
+                    
+                    loginError.style.display = 'block';
+                    showToast('Login failed: ' + loginError.textContent, 'error');
+                })
+                .finally(() => {
+                    // Restore button state
+                    loginButton.innerHTML = originalText;
+                    loginButton.disabled = false;
+                });
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            // Clear previous errors
+            document.querySelectorAll('.form-error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            // Validate form
+            let isValid = true;
+            
+            if (!name) {
+                document.getElementById('signup-name-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!email) {
+                document.getElementById('signup-email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!password || password.length < 8) {
+                document.getElementById('signup-password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('signup-confirm-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Show loading state
+            const signupButton = document.getElementById('signup-button');
+            const originalText = signupButton.textContent;
+            signupButton.innerHTML = '<span class="loading-spinner"></span> Creating Account...';
+            signupButton.disabled = true;
+            
+            // Create user with email and password
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    
+                    // Update profile
+                    return user.updateProfile({
+                        displayName: name
+                    }).then(() => {
+                        // Create user document in Firestore
+                        return db.collection('users').doc(user.uid).set({
+                            name: name,
+                            email: email,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    });
+                })
+                .then(() => {
+                    console.log('User created successfully');
+                    signupForm.reset();
+                    showToast('Account created successfully!', 'success');
+                })
+                .catch((error) => {
+                    // Handle errors
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                    console.error('Signup error:', errorCode, errorMessage);
+                    
+                    // Display error message
+                    const signupError = document.getElementById('signup-error');
+                    
+                    if (errorCode === 'auth/email-already-in-use') {
+                        signupError.textContent = 'Email is already in use';
+                    } else if (errorCode === 'auth/invalid-email') {
+                        signupError.textContent = 'Invalid email address';
+                    } else if (errorCode === 'auth/weak-password') {
+                        signupError.textContent = 'Password is too weak';
+                    } else {
+                        signupError.textContent = errorMessage;
+                    }
+                    
+                    signupError.style.display = 'block';
+                    showToast('Signup failed: ' + signupError.textContent, 'error');
+                })
+                .finally(() => {
+                    // Restore button state
+                    signupButton.innerHTML = originalText;
+                    signupButton.disabled = false;
+                });
+        }
+
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // Check if user document exists in Firestore
+                    const user = result.user;
+                    const userDocRef = db.collection('users').doc(user.uid);
+                    
+                    userDocRef.get().then((doc) => {
+                        if (!doc.exists) {
+                            // Create user document if it doesn't exist
+                            return userDocRef.set({
+                                name: user.displayName,
+                                email: user.email,
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.error('Google sign-in error:', error);
+                    showToast('Google sign-in failed', 'error');
+                });
+        }
+
+        function signInWithApple() {
+            const provider = new firebase.auth.OAuthProvider('apple.com');
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // Check if user document exists in Firestore
+                    const user = result.user;
+                    const userDocRef = db.collection('users').doc(user.uid);
+                    
+                    userDocRef.get().then((doc) => {
+                        if (!doc.exists) {
+                            // Create user document if it doesn't exist
+                            return userDocRef.set({
+                                name: user.displayName || 'Apple User',
+                                email: user.email,
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.error('Apple sign-in error:', error);
+                    showToast('Apple sign-in failed', 'error');
+                });
+        }
+
+        // Load User Data
+        function loadUserData(user) {
+            // Update UI with user info
+            document.querySelectorAll('.profile-avatar').forEach(avatar => {
+                if (user.displayName) {
+                    const initials = user.displayName.split(' ')
+                        .map(name => name[0])
+                        .join('')
+                        .toUpperCase();
+                    avatar.textContent = initials;
+                } else {
+                    avatar.textContent = user.email[0].toUpperCase();
+                }
+            });
+            
+            // Load user's alters from Firestore
+            db.collection('users').doc(user.uid).collection('alters').get()
+                .then((querySnapshot) => {
+                    // Process user's alters
+                    // This would update the UI with the user's alters
+                    console.log('User alters loaded:', querySnapshot.size);
+                })
+                .catch((error) => {
+                    console.error('Error loading alters:', error);
+                });
+        }
+
+        // Post Interaction Handlers
+        function handlePostAction(e) {
+            const action = e.currentTarget;
+            const actionType = action.querySelector('span').textContent;
+            
+            if (actionType === 'Resonate') {
+                action.classList.toggle('resonated');
+                if (action.classList.contains('resonated')) {
+                    action.querySelector('span').textContent = 'Resonated';
+                    showToast('Post resonated!', 'success');
+                } else {
+                    action.querySelector('span').textContent = 'Resonate';
+                }
+            } else if (actionType === 'React') {
+                showToast('Coming soon: React to this post', 'success');
+            } else if (actionType === 'Share') {
+                showToast('Coming soon: Share this post', 'success');
+            } else if (actionType === 'Ask') {
+                showToast('Coming soon: Ask this alter a question', 'success');
+            }
+        }
+
+        // Modal Form Handlers
+        function handlePromptResponse() {
+            const response = document.getElementById('response-text').value;
+            const alter = document.getElementById('alter-select').value;
+            
+            if (!response) {
+                showToast('Please write a response', 'error');
+                return;
+            }
+            
+            // In a real app, this would save the response to Firestore
+            console.log('Prompt response:', response);
+            console.log('Alter:', alter);
+            
+            showToast('Response posted successfully!', 'success');
+            closeModal(promptModal);
+            
+            // Reset form
+            document.getElementById('response-text').value = '';
+        }
+
+        function handleCreateAlter() {
+            const alterName = document.getElementById('alter-name').value;
+            const alterDescription = document.getElementById('alter-description').value;
+            
+            if (!alterName) {
+                showToast('Please give your alter a name', 'error');
+                return;
+            }
+            
+            if (!alterDescription) {
+                showToast('Please describe your alter', 'error');
+                return;
+            }
+            
+            // In a real app, this would save the alter to Firestore
+            console.log('Alter name:', alterName);
+            console.log('Alter description:', alterDescription);
+            
+            showToast('Alter created successfully!', 'success');
+            closeModal(createAlterModal);
+            
+            // Reset form
+            document.getElementById('alter-name').value = '';
+            document.getElementById('alter-description').value = '';
+        }
+
+        // Mood Slider
+        function updateMood(e) {
+            const value = e.target.value;
+            let emoji = '😐';
+            
+            if (value < 20) {
+                emoji = '😢';
+            } else if (value < 40) {
+                emoji = '😕';
+            } else if (value < 60) {
+                emoji = '😐';
+            } else if (value < 80) {
+                emoji = '😊';
+            } else {
+                emoji = '😁';
+            }
+            
+            // Update UI
+            document.querySelector('.mood-indicator').textContent = emoji;
+        }
     </script>
 </body>
 </html>
