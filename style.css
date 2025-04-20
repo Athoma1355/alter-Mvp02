@@ -1,0 +1,287 @@
+/* Additional CSS for Alter Platform */
+
+/* Animations for interactive elements */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Apply animations to elements */
+.post-card, .comment-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.daily-prompt {
+    position: relative;
+    overflow: hidden;
+}
+
+.daily-prompt::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(108, 99, 255, 0) 0%, rgba(108, 99, 255, 0.1) 50%, rgba(108, 99, 255, 0) 100%);
+    animation: shine 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+}
+
+/* Enhanced hover effects */
+.post-action:hover i {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+}
+
+.prompt-button:hover {
+    animation: pulse 0.5s infinite;
+}
+
+.create-alter-card:hover .create-icon {
+    animation: pulse 0.5s infinite;
+}
+
+/* Enhanced post interaction */
+.resonated i {
+    animation: pulse 0.5s;
+}
+
+/* Improved Mobile Menu */
+.mobile-sidebar {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mobile-sidebar.active {
+    animation: slideIn 0.3s forwards;
+}
+
+/* Enhanced Auth Buttons */
+.auth-button:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+}
+
+/* Loading Animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    border-top-color: var(--primary);
+    animation: spin 1s linear infinite;
+}
+
+/* Improved Mood Slider */
+.mood-slider {
+    height: 8px;
+    cursor: pointer;
+}
+
+.mood-slider::-webkit-slider-thumb {
+    transition: transform 0.2s;
+}
+
+.mood-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.mood-slider::-moz-range-thumb {
+    transition: transform 0.2s;
+}
+
+.mood-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Current Mood Emoji Animation */
+.current-mood-display {
+    animation: fadeInUp 0.5s;
+    transition: all 0.3s;
+}
+
+/* Enhanced Profile Card */
+.profile-card {
+    transition: all 0.3s;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(108, 99, 255, 0.15);
+}
+
+.profile-avatar-large {
+    transition: all 0.3s;
+}
+
+.profile-card:hover .profile-avatar-large {
+    transform: scale(1.1);
+}
+
+/* Enhanced Post Card */
+.post-card {
+    transition: all 0.3s;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(108, 99, 255, 0.12);
+}
+
+/* Personality Tags */
+.personality-tag {
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.personality-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(108, 99, 255, 0.2);
+}
+
+.personality-tag.selected {
+    animation: pulse 0.5s;
+}
+
+/* Improved Form Fields */
+.input-field {
+    transition: all 0.3s;
+}
+
+.input-field:focus {
+    transform: translateY(-1px);
+}
+
+/* Profile Actions */
+.profile-action {
+    transition: all 0.3s;
+}
+
+.profile-action:hover .action-circle {
+    animation: pulse 0.5s;
+}
+
+/* Toast Notifications */
+.toast {
+    animation: fadeInUp 0.3s;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .post-card, .comment-card, .daily-prompt {
+        transform: none !important;
+        animation: fadeInUp 0.5s;
+    }
+    
+    .post-actions {
+        justify-content: space-around;
+    }
+}
+
+/* Dark Mode Support (for future implementation) */
+[data-theme="dark"] {
+    --primary: #8C85FF;
+    --primary-dark: #6C63FF;
+    --primary-light: #AAA5FF;
+    --accent: #FF7A98;
+    --background: #1A1A2E;
+    --card-bg: #262640;
+    --text-primary: #F2F2F2;
+    --text-secondary: #BBBBCC;
+    --text-tertiary: #8D8DA8;
+    --border: #3F3F60;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Input Autofill Styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--background) inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Badge Animations */
+.personality-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.personality-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: translateX(-100%);
+}
+
+.personality-badge:hover::after {
+    animation: shine 1.5s;
+}
+
+@keyframes shine {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* Modal Animations */
+.modal.show .modal-content {
+    animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Content Loading Skeleton */
+.skeleton {
+    background: linear-gradient(90deg, var(--background) 25%, var(--border) 50%, var(--background) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

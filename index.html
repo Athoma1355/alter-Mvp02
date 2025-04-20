@@ -1896,38 +1896,40 @@
     </div>
 
     <!-- Create Alter Modal -->
-    <div class="modal" id="create-alter-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Create New Alter</h3>
-                <button class="modal-close" id="close-create-modal" aria-label="Close modal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="input-group">
-                <label for="alter-name" class="input-label">Alter Name</label>
-                <input type="text" id="alter-name" class="input-field" placeholder="Give your alter a name">
-            </div>
-            <div class="input-group">
-                <label class="input-label">Personality Traits</label>
-                <div class="personality-tags" style="justify-content: flex-start;">
-                    <div class="personality-tag">Honest</div>
-                    <div class="personality-tag">Creative</div>
-                    <div class="personality-tag">Analytical</div>
-                    <div class="personality-tag">Empathetic</div>
-                    <div class="personality-tag">Chaotic</div>
-                    <div class="personality-tag">Wise</div>
-                    <div class="personality-tag">Adventurous</div>
-                    <div class="personality-tag">Technical</div>
-                </div>
-            </div>
-            <div class="input-group">
-                <label for="alter-description" class="input-label">Alter Description</label>
-                <textarea id="alter-description" class="input-field" rows="4" placeholder="Describe your alter's personality, voice, and interests..."></textarea>
-            </div>
-            <button class="auth-button" id="create-alter-submit">Create Alter</button>
+   <!-- Updated Create Alter Modal -->
+<div class="modal" id="create-alter-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Create New Alter</h3>
+            <button class="modal-close" id="close-create-modal" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        <div class="input-group">
+            <label for="alter-name" class="input-label">Alter Name</label>
+            <input type="text" id="alter-name" class="input-field" placeholder="Give your alter a name">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Personality Traits (select up to 3)</label>
+            <div class="personality-tags" style="justify-content: flex-start;">
+                <div class="personality-tag" style="cursor: pointer;">Honest</div>
+                <div class="personality-tag" style="cursor: pointer;">Creative</div>
+                <div class="personality-tag" style="cursor: pointer;">Analytical</div>
+                <div class="personality-tag" style="cursor: pointer;">Empathetic</div>
+                <div class="personality-tag" style="cursor: pointer;">Chaotic</div>
+                <div class="personality-tag" style="cursor: pointer;">Wise</div>
+                <div class="personality-tag" style="cursor: pointer;">Adventurous</div>
+                <div class="personality-tag" style="cursor: pointer;">Technical</div>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="alter-description" class="input-label">Alter Description</label>
+            <textarea id="alter-description" class="input-field" rows="4" placeholder="Describe your alter's personality, voice, and interests..."></textarea>
+        </div>
+        <button class="auth-button" id="create-alter-submit">Create Alter</button>
     </div>
+</div>
+
 
     <!-- Toast Notifications Container -->
     <div id="toast-container"></div>
