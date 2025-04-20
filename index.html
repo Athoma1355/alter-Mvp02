@@ -519,6 +519,19 @@
         </div>
         
         <div class="feed">
+            <div style="max-width: 300px; margin: 40px auto; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+                <h3 style="color: #fff;">Sign Up</h3>
+                <input type="email" id="signup-email" placeholder="Email" style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+                <input type="password" id="signup-password" placeholder="Password" style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+                <button onclick="signUp()" style="width: 100%; margin-bottom: 20px;">Sign Up</button>
+              
+                <h3 style="color: #fff;">Log In</h3>
+                <input type="email" id="login-email" placeholder="Email" style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+                <input type="password" id="login-password" placeholder="Password" style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+                <button onclick="logIn()" style="width: 100%; margin-bottom: 20px;">Log In</button>
+              
+                <button onclick="logOut()" style="width: 100%;">Log Out</button>
+              </div>
             <div class="feed-tabs">
                 <div class="feed-tab active">Following</div>
                 <div class="feed-tab">Explore</div>
@@ -763,5 +776,71 @@
             </div>
         </div>
     </div>
+    <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+
+  
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD6o49UYokU6zZCKY1nUh7mQ3ayZsfXelQ",
+    authDomain: "alter-platform.firebaseapp.com",
+    projectId: "alter-platform",
+    storageBucket: "alter-platform.appspot.com",
+    messagingSenderId: "153036089847",
+    appId: "1:153036089847:web:17cd103dd3f8ccade5a6f2"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+<script>
+    function signUp() {
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+  
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("✅ Signed up as: " + userCredential.user.email);
+        })
+        .catch((error) => {
+          alert("❌ Signup error: " + error.message);
+        });
+    }
+  
+    function logIn() {
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+  
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("✅ Logged in as: " + userCredential.user.email);
+        })
+        .catch((error) => {
+          alert("❌ Login error: " + error.message);
+        });
+    }
+  
+    function logOut() {
+      auth.signOut()
+        .then(() => {
+          alert("👋 Logged out");
+        })
+        .catch((error) => {
+          alert("❌ Logout error: " + error.message);
+        });
+    }
+  
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("🟢 User is logged in:", user.email);
+      } else {
+        console.log("🔴 No user logged in");
+      }
+    });
+  </script>
+  
+
 </body>
 </html>
