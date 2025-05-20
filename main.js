@@ -23,6 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+console.log("✅ Firebase initialized");
 
 // Set daily prompt
 const prompts = [
@@ -58,6 +59,7 @@ if (postForm) {
         text,
         createdAt: new Date()
       });
+      console.log("✅ Post submitted");
       postForm.reset();
     } catch (err) {
       console.error("❌ Failed to post:", err);
