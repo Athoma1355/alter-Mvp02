@@ -9,7 +9,7 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 🔧 Firebase config
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCiAiKHAmdxIbCiFsOjLNGFFi8DKnO5y50",
   authDomain: "alterapprun22.firebaseapp.com",
@@ -20,17 +20,11 @@ const firebaseConfig = {
   measurementId: "G-1KT2RT1095"
 };
 
-// 🚀 Initialize Firebase
-let db;
-try {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-  console.log("✅ Firebase initialized successfully");
-} catch (error) {
-  console.error("❌ Firebase initialization failed:", error);
-}
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// 🧠 Daily prompt logic
+// Set daily prompt
 const prompts = [
   "What’s your Alter’s biggest fear?",
   "Describe your Alter’s perfect world.",
@@ -41,39 +35,41 @@ const prompts = [
 
 const dailyPromptEl = document.getElementById("daily-prompt");
 const today = new Date().getDate() % prompts.length;
-dailyPromptEl.textContent = `🧠 Prompt of the Day: ${prompts[today]}`;
+if (dailyPromptEl) {
+  dailyPromptEl.textContent = `🧠 Prompt of the Day: ${prompts[today]}`;
+}
 
-// 📝 Handle post form submission
+// Post submission
 const postForm = document.getElementById("post-form");
-postForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
+if (postForm) {
+  postForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const alter = document.getElementById("alterName").value.trim();
-  const mood = document.getElementById("mood").value.trim();
-  const text = document.getElementById("text").value.trim();
+    const alter = document.getElementById("alterName").value.trim();
+    const mood = document.getElementById("mood").value.trim();
+    const text = document.getElementById("text").value.trim();
 
-  if (!alter || !mood || !text) return alert("Please fill out all fields.");
+    if (!alter || !mood || !text) return alert("Please fill out all fields.");
 
-  try {
-    await addDoc(collection(db, "posts"), {
-      alter,
-      mood,
-      text,
-      createdAt: new Date()
-    });
-    console.log("✅ Post submitted");
-    postForm.reset();
-  } catch (err) {
-    console.error("❌ Failed to post:", err);
-    alert("Error posting: " + err.message);
-  }
-});
+    try {
+      await addDoc(collection(db, "posts"), {
+        alter,
+        mood,
+        text,
+        createdAt: new Date()
+      });
+      postForm.reset();
+    } catch (err) {
+      console.error("❌ Failed to post:", err);
+      alert("Error posting: " + err.message);
+    }
+  });
+}
 
-// 📡 Load feed from Firestore
-try {
-  const postsContainer = document.getElementById("posts");
+// Load feed
+const postsContainer = document.getElementById("posts");
+if (postsContainer) {
   const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-
   onSnapshot(q, (snapshot) => {
     postsContainer.innerHTML = "";
     snapshot.forEach((doc) => {
@@ -88,6 +84,4 @@ try {
       postsContainer.appendChild(postEl);
     });
   });
-} catch (err) {
-  console.error("❌ Error loading posts:", err);
 }
